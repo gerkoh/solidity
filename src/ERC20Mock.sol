@@ -2,7 +2,7 @@
 pragma solidity ^0.8.15;
 import "../token/ERC20Permit.sol";
 
-contract ERC20Mock is ERC20Permit  {
+contract ERC20Mock is ERC20Permit, IERC20  {
 
     constructor(
         string memory name,

@@ -13,17 +13,19 @@ contract BasicVault is ERC20Mock {
     mapping address => uint256 public balances;
 
     // events 
-    event Transfer(address indexed sender, address indexed recipient, uint256 amount);
+    event Deposit(address indexed recipient, uint256 amount);
     event Withdrawal(address indexed sender, uint256 amount);
     
     // constructor function
-    constructor() public{
-
+    constructor(string memory name, string memory symbol) ERC20Mock(name, symbol) public {
     }
 
     // deposit function
-    function transferFrom(address sender, address recipient, uint256 amount) {
-        emit Transfer(sender, recipient, amount);
+    function deposit(address recipient, uint256 amount) public {
+        balances[msg.sender] += amount;
+        bool success = wmdToken.transfer(msg.sender, amount);
+        require(success, "Insufficient balance");
+        emit Deposit(msg.sender, amount);
     }
     
 
